@@ -1,17 +1,15 @@
-const mongoose = require("mongoose");
-
-require("dotenv").config();
-
-mongoose.set("strictQuery", true);
-
-main().catch((err) => console.log(err));
+const mongoose = require('mongoose');
 
 async function main() {
-  await mongoose.connect(
-    `mongodb+srv://${process.env.DBUSER}:${process.env.DBPASS}@cluster0.rvt6uwq.mongodb.net/?retryWrites=true&w=majority`
-  );
-
-  console.log("Conectado com sucesso!");
+  try {
+    await mongoose.connect('mongodb://127.0.0.1/uploado', {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
+    });
+    console.log('Conectado ao MongoDB');
+  } catch (err) {
+    console.error('Erro ao conectar ao MongoDB:', err);
+  }
 }
 
 module.exports = main;
